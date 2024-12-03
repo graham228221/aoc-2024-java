@@ -31,16 +31,15 @@ public class Day3 {
         }
 
         for(String instruction : instructions) {
-            if(instruction.equals("do")) {
-                enabled = true;
-            } else if(instruction.equals("don't")) {
-                enabled = false;
-            } else {
+
+            if(instruction.startsWith("mul")) {
                 Mul mul = day3.new Mul(instruction);
                 partOneResult += mul.product;
                 if(enabled) {
                     partTwoResult += mul.product;
                 }
+            } else {
+                enabled = instruction.equals("do");
             }
         }
 

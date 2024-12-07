@@ -12,8 +12,11 @@ public class Day7 {
     static Boolean partTwoRunning = true;
 
     public static void main(String[] args) throws Exception {
-        //List<String> lines = new InputFile("day7").testLines;
+
+        long startTime = System.nanoTime();
+
         List<String> lines = new InputFile("day7").inputLines;
+        //List<String> lines = new InputFile("day7").testLines;
 
         Long endResult = 0L;
 
@@ -41,6 +44,10 @@ public class Day7 {
         }
 
         System.out.println("result: " + endResult);
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime) / 1000000000;  
+        System.out.println("time taken in seconds: " + duration );
 
     }
 

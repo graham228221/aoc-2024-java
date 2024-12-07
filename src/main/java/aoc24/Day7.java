@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import main.java.aoc24.utils.InputFile;
 
-public class day7 {
+public class Day7 {
 
     static Boolean partTwoRunning = true;
 

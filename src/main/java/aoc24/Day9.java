@@ -156,11 +156,6 @@ public class Day9 {
             } else {
                 System.out.print(FREE_SPACE);
             }
-            // } if(freeSpaces.contains(i)) {
-                
-            // } else {
-            //     System.out.print("X");
-            // }
         }
         System.out.println("$");
     }

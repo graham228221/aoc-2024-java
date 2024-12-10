@@ -14,24 +14,32 @@ public class Day10 {
     static int gridSize;
     static ArrayList<String> trailHeadCoords = new ArrayList<String>();
 
-     //haha
     static HashSet<String> currentTrailHeadPeaks = new HashSet<String>();
     static int currentRating;
-
-    static Boolean partTwo = true;
 
     public static void main(String[] args) throws Exception {
         buildMap();
 
-        int result = 0;
+        int partOneResult = 0;
+        int partTwoResult = 0;
 
         for(String trailHeadCoord : trailHeadCoords) {
+            
+            //reset count properties for new trail head
+            currentTrailHeadPeaks = new HashSet<String>(); //unique peaks for this trail head (part one)
+            currentRating = 0; //all trails leading to a peak from this trail head (part two)
+            
             String[] coordinates = trailHeadCoord.split(",");
 
-            result += getTrailHeadScore(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]));
+            tryValidNextSteps(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1]), 0);
+
+            partOneResult += currentTrailHeadPeaks.size();
+            partTwoResult += currentRating;
+
         }
 
-        System.out.println("Result: " + result);
+        System.out.println("Part one result: " + partOneResult);
+        System.out.println("Part two result: " + partTwoResult);
     }
 
     static void buildMap(){
@@ -56,55 +64,30 @@ public class Day10 {
         }
     }
 
-    static int getTrailHeadScore(int x, int y) {
-        //reset for this trail head
-        currentTrailHeadPeaks = new HashSet<String>(); //unique peaks
-        currentRating = 0; //all paths leading to a peak
-
-        day10.new Coordinate(x, y, 0);
-
-        return partTwo ? currentRating : currentTrailHeadPeaks.size();
-    }
-
     static void tryValidNextSteps(int x, int y, int value) {
-        if(x > 0) {
-            if(map[y][x-1] == value + 1) {
-                    day10.new Coordinate(x-1, y, value+1);
+        if(value == 9) {
+            currentTrailHeadPeaks.add(x + "," + y);
+            currentRating ++;
+        } else {
+            if(x > 0) {
+                if(map[y][x-1] == value + 1) {
+                    tryValidNextSteps(x-1, y, value+1);
+                }
             }
-        }
-        if(x < gridSize - 1) {
-            if(map[y][x+1] == value + 1) {
-                    day10.new Coordinate(x+1, y, value+1);
+            if(x < gridSize - 1) {
+                if(map[y][x+1] == value + 1) {
+                    tryValidNextSteps(x+1, y, value+1);
+                }
             }
-        }
-        if(y > 0) {
-            if(map[y-1][x] == value + 1) {
-                    day10.new Coordinate(x, y-1, value+1);
+            if(y > 0) {
+                if(map[y-1][x] == value + 1) {
+                    tryValidNextSteps(x, y-1, value+1);
+                }
             }
-        }
-        if(y < gridSize - 1) {
-            if(map[y+1][x] == value + 1) {
-                    day10.new Coordinate(x, y+1, value+1);
-            }
-        }
-    }
-
-
-    class Coordinate {
-        int x;
-        int y;
-        int value;
-
-        Coordinate(int x, int y, int value) {
-            this.x = x;
-            this.y = y;
-            this.value = value;
-
-            if(value < 9) {
-                tryValidNextSteps(x, y, value);
-            } else {
-                currentTrailHeadPeaks.add(x + "," + y);
-                currentRating ++;
+            if(y < gridSize - 1) {
+                if(map[y+1][x] == value + 1) {
+                    tryValidNextSteps(x, y+1, value+1);
+                }
             }
         }
     }

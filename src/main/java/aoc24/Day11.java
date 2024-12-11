@@ -89,7 +89,6 @@ public class Day11 {
         if(stone.equals("0")) {
             stoneCount = keepBlinking("1", stoneCount, blinkNumber+1);
         } else if((stone.length() & 1) == 0 ) { //is even
-            stoneDepthByTotal.put(stone+"|"+blinkNumber, stoneCount+1);
             String stoneOne = stone.substring(0, stone.length()/2);
             String stoneTwo = stone.substring(stone.length()/2);
             stoneCount = keepBlinking(String.valueOf(Long.parseLong(stoneOne)), stoneCount, blinkNumber+1) + keepBlinking(String.valueOf(Long.parseLong(stoneTwo)), stoneCount, blinkNumber+1);
